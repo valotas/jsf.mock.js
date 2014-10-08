@@ -23,6 +23,9 @@
   "devDependencies": {
     "gulp": "^3.8.8",
     "gulp-jshint": "^1.8.5",
-    "jshint-stylish": "^1.0.0"
+    "jshint-stylish": "^1.0.0",
+    "karma": "^0.12.24",
+    "karma-chrome-launcher": "^0.1.5",
+    "karma-jasmine": "^0.2.2"
   }
 }
