@@ -1,0 +1,23 @@
+{
+  "name": "jsf-mock",
+  "version": "0.0.1",
+  "description": "Mock implementation for jsf.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:valotas/jsf.mock.js.git"
+  },
+  "keywords": [
+    "jsf",
+    "mock"
+  ],
+  "author": "Georgios Valotasios",
+  "license": "Apache v2.0",
+  "bugs": {
+    "url": "https://github.com/jashkenas/underscore/issues"
+  },
+  "homepage": "https://github.com/jashkenas/underscore"
+}
