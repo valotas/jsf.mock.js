@@ -1,0 +1,20 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "sub": true,
+  "undef": true,
+  "unused": true,
+  "boss": true,
+  "eqnull": true,
+  "forin": true,
+  "indent": 2,
+  "noempty": true,
+  "nonew": true,
+  "strict": true,
+  "trailing": true,
+  "browser": true
+}
