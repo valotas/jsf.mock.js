@@ -28,6 +28,10 @@
     });
   };
   
+  ajax.handlers = function () {
+    return onevents;
+  };
+  
   //Export our module
   g.jsf = jsf;
 })(window);
