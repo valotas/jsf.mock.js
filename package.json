@@ -17,9 +17,9 @@
   "author": "Georgios Valotasios",
   "license": "Apache v2.0",
   "bugs": {
-    "url": "https://github.com/jashkenas/underscore/issues"
+    "url": "https://github.com/valotas/jsf.mock.js/issues"
   },
-  "homepage": "https://github.com/jashkenas/underscore",
+  "homepage": "https://github.com/valotas/jsf.mock.js",
   "devDependencies": {
     "gulp": "^3.8.8",
     "gulp-jshint": "^1.8.5",
