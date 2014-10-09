@@ -2,55 +2,79 @@
 
 (function (g) {
   'use strict';
-
-  var jsf = {},
-    ajax = {},
-    onevents = [];
   
   function IllegalArgumentException(message) {
     this.name = 'IllegalArgumentException';
     this.message = message;
   }
   
-  function getFunctionName (f) {
-    var matches = /function\s+(\w+).*/.exec(f.toString());
-    if (matches && matches.length === 2) {   
-      return matches[1]; 
+  function EventBus () {
+    var handlers = [];
+    
+    function getFunctionName (f) {
+      var matches = /function\s+(\w+).*/.exec(f.toString());
+      if (matches && matches.length === 2) {   
+        return matches[1]; 
+      }
+      return null;
     }
-    return null;
+    
+    this.add = function (type, handler) {
+      var handlerType = typeof handler; 
+      if (handlerType !== 'function') {
+        throw new IllegalArgumentException('Can not add a non function as an event handler. Given type: ' + handlerType);
+      }
+
+      handlers.push({
+        type: type,
+        name: getFunctionName(handler),
+        handler: handler
+      });
+    };
+    
+    this.fire = function(type, data, name) {
+      if (type !== 'error' || type !== 'normal') {
+        name = data;
+        data = type;
+        type = 'normal';
+      }
+      handlers
+        .filter(function (h) {
+          if (type !== h.type) {
+            return false; 
+          }
+          if (name) {
+            return h.name === name; 
+          }
+          return true;
+        })
+        .forEach(function (h) {
+          h.handler(data);
+        });
+    };
+    
+    this.size = function (type) {
+      var t = type || 'normal';
+      return handlers.filter(function (h) {
+        return h.type === t;
+      }).length;
+    };
   }
+
+  var jsf = {},
+    ajax = new EventBus();
   
   jsf.ajax = ajax;
   
   ajax.addOnEvent = function (f) {
-    var type = typeof f; 
-    if (type !== 'function') {
-      throw new IllegalArgumentException('Can not add a non function as an event listener. Given: ' + type);
-    }
-
-    onevents.push({
-      name: getFunctionName(f),
-      handler: f
-    });
+    this.add('normal', f);
   };
   
-  ajax.fireEvent = function (data, name) {
-    onevents
-      .filter(function (h) {
-        if (name) {
-          return name === h.name;  
-        }
-        return true;
-      })
-      .forEach(function (h) {
-        h.handler(data);
-      });
-  };
-  
-  ajax.handlers = function () {
-    return onevents;
+  ajax.addOnError = function (f) {
+    this.add('error', f);
   };
   
   //Export our module
+  g.jsfmock = jsf;
   g.jsf = jsf;
 })(window);

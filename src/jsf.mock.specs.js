@@ -7,21 +7,21 @@ describe('jsf.mock.js', function () {
   function noop () {}
   
   describe('jsf.ajax', function () {
-    it('should provide a fireEvent function', function () {
-      expect(jsf.ajax.fireEvent).toBeDefined();
+    it('should provide a fire function', function () {
+      expect(jsf.ajax.fire).toBeDefined();
     });
     
     it('should provide addOnEvent to add a listener', function () {
       jsf.ajax.addOnEvent(noop);
-      expect(jsf.ajax.handlers().length).toEqual(1);
+      expect(jsf.ajax.size()).toEqual(1);
     });
 
-    it('should fire handles when fireEvent is called', function () {
+    it('should fire handles when fire is called', function () {
       var handler = jasmine.createSpy('handler'),
         eventData = {};
       
       jsf.ajax.addOnEvent(handler);
-      jsf.ajax.fireEvent(eventData);
+      jsf.ajax.fire(eventData);
       expect(handler).toHaveBeenCalledWith(eventData);
     });
     
@@ -34,7 +34,7 @@ describe('jsf.mock.js', function () {
         handlerSpy(event);
       });
       
-      jsf.ajax.fireEvent(eventData, 'handle');
+      jsf.ajax.fire(eventData, 'handle');
       expect(handlerSpy.calls.count()).toEqual(1);
     });
   });
