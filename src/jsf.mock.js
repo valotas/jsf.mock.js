@@ -12,20 +12,39 @@
     this.message = message;
   }
   
+  function getFunctionName (f) {
+    var matches = /function\s+(\w+).*/.exec(f.toString());
+    if (matches && matches.length === 2) {   
+      return matches[1]; 
+    }
+    return null;
+  }
+  
   jsf.ajax = ajax;
   
   ajax.addOnEvent = function (f) {
-    if (!(f)) {
-      throw new IllegalArgumentException('Can not add undefined as an event listener');
+    var type = typeof f; 
+    if (type !== 'function') {
+      throw new IllegalArgumentException('Can not add a non function as an event listener. Given: ' + type);
     }
-    
-    onevents.push(f);
+
+    onevents.push({
+      name: getFunctionName(f),
+      handler: f
+    });
   };
   
-  ajax.fireEvent = function (data) {
-    onevents.forEach(function (f) {
-      f(data);
-    });
+  ajax.fireEvent = function (data, name) {
+    onevents
+      .filter(function (h) {
+        if (name) {
+          return name === h.name;  
+        }
+        return true;
+      })
+      .forEach(function (h) {
+        h.handler(data);
+      });
   };
   
   ajax.handlers = function () {

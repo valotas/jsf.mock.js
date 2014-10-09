@@ -24,6 +24,18 @@ describe('jsf.mock.js', function () {
       jsf.ajax.fireEvent(eventData);
       expect(handler).toHaveBeenCalledWith(eventData);
     });
+    
+    it('should fire an events only on functions with the given name if provided', function (){
+      var handlerSpy = jasmine.createSpy('handler'),
+        eventData = {};
+      
+      jsf.ajax.addOnEvent(handlerSpy);
+      jsf.ajax.addOnEvent(function handle (event) {
+        handlerSpy(event);
+      });
+      
+      jsf.ajax.fireEvent(eventData, 'handle');
+      expect(handlerSpy.calls.count()).toEqual(1);
+    });
   });
 });
-  
