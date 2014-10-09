@@ -1,0 +1,15 @@
+{
+  "name": "jsf-mock",
+  "version": "0.0.2",
+  "homepage": "https://github.com/valotas/jsf.mock.js",
+  "authors": [
+    "Georgios Valotasios <valotas@gmail.com>"
+  ],
+  "description": "Mock implementation for jsf.js",
+  "main": "src/jsf.mock.js",
+  "keywords": [
+    "jsf",
+    "mock"
+  ],
+  "license": "Apache v2.0"
+}
