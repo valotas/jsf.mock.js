@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var bump = require('gulp-bump');
+var argv = require('yargs').argv;
 var karma = require('karma').server;
 
 gulp.task('lint', function () {
@@ -30,8 +31,11 @@ gulp.task('ci-test', function (done) {
 });
 
 gulp.task('bump', function () {
+  var type = argv.major ? 'major'
+    : argv.minor ? 'minor'
+    : 'patch';
   return gulp.src(['./package.json', './bower.json'])
-    .pipe(bump())
+    .pipe(bump({type: type}))
     .pipe(gulp.dest('./'));
 });
 
