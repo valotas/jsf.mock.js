@@ -20,4 +20,11 @@ gulp.task('tdd', function (done) {
   }, done);
 });
 
-gulp.task('default', ['tdd']);
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+gulp.task('default', ['lint', 'test']);
