@@ -37,5 +37,11 @@ describe('jsf.mock.js', function () {
       jsf.ajax.fire(eventData, 'handle');
       expect(handlerSpy.calls.count()).toEqual(1);
     });
+
+    it('should provide a function to clear all existing handlers',function () {
+      expect(jsf.ajax.handlersSize()).toBeGreaterThan(0);
+      jsf.ajax.clearHandlers();
+      expect(jsf.ajax.handlersSize()).toBe(0);
+    });
   });
 });

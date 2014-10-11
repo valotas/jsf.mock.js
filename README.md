@@ -8,13 +8,14 @@ Just include `jsf.mock.js` and you are good to go.
 
 Mocked methods:
 
-- `jsf.ajax.addOnEvent` adds the given function to a local array
-- `jsf.ajax.addOnError` adds the given function to a local array
+- `jsf.ajax.addOnEvent` adds the given function as a normal event handler to a local array
+- `jsf.ajax.addOnError` adds the given function as an error handler to the local array
 
 Helper methods:
 
 - `jsf.ajax.fire([type], eventData, [name])` fires an event with the given data. If no `type` is provided, only the non error handlers will be used. If `type === 'error'` only the error handlers will be used. Finally if a `name` is provided handlers will be filtered based on their name.
 - `jsf.ajax.hadlersSize([type])` returns the size of the available handlers of the given `name`
+- `jsf.ajax.clearHandlers()` clears all the existing handlers available
 
 Here is an exaple of how to use it
 

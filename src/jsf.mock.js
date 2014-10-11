@@ -59,6 +59,10 @@
         return h.type === t;
       }).length;
     };
+
+    this.clearHandlers = function () {
+      handlers = [];
+    };
   }
 
   var jsf = {},
