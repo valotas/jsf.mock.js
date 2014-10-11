@@ -1,4 +1,4 @@
-# jsf.mock.js
+# jsf.mock.js [![Build Status](https://travis-ci.org/valotas/jsf.mock.js.svg?branch=master)](https://travis-ci.org/valotas/jsf.mock.js)
 
 When it comes to TDD, `jsf.js` needs to be mocked somehow.
 
