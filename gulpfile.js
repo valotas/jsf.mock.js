@@ -20,11 +20,12 @@ gulp.task('tdd', function (done) {
   }, done);
 });
 
-gulp.task('test', function (done) {
+gulp.task('ci-test', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
+    browsers: ['PhantomJS'],
     singleRun: true
   }, done);
 });
 
-gulp.task('default', ['lint', 'test']);
+gulp.task('default', ['lint', 'ci-test']);
