@@ -31,6 +31,12 @@ jsf.ajax.fire('error', {}); //only the error handlers will be used
 jsf.ajax.fire('error', {}, 'anotherErrorHandler'); // only the anotherErrorHandler will be used
 ```
 
+## Developing
+
+Assuming that you have node installed, you can `gulp tdd` in order to watch for file changes and run the tests. Before you commit make sure you run the default `gulp` task.
+
+Finally you can use gulp to to a release with `gulp release [--major|minor]`. If no major or minor will be given the version will get bumped as a patch.
+
 ## References
 - The [jsf.js api][jsf-js-doc]
 
