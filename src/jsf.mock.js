@@ -53,7 +53,7 @@
         });
     };
     
-    this.size = function (type) {
+    this.handlersSize = function (type) {
       var t = type || 'normal';
       return handlers.filter(function (h) {
         return h.type === t;

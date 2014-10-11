@@ -13,7 +13,7 @@ describe('jsf.mock.js', function () {
     
     it('should provide addOnEvent to add a listener', function () {
       jsf.ajax.addOnEvent(noop);
-      expect(jsf.ajax.size()).toEqual(1);
+      expect(jsf.ajax.handlersSize()).toEqual(1);
     });
 
     it('should fire handles when fire is called', function () {

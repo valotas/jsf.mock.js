@@ -14,6 +14,7 @@ Mocked methods:
 Helper methods:
 
 - `jsf.ajax.fire([type], eventData, [name])` fires an event with the given data. If no `type` is provided, only the non error handlers will be used. If `type === 'error'` only the error handlers will be used. Finally if a `name` is provided handlers will be filtered based on their name.
+- `jsf.ajax.hadlersSize([type])` returns the size of the available handlers of the given `name`
 
 Here is an exaple of how to use it
 
