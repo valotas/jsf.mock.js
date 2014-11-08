@@ -8,7 +8,7 @@ var stylish = require('jshint-stylish');
 var bump = require('gulp-bump');
 var argv = require('yargs').argv;
 var karma = require('karma').server;
-var git = require('gulp-git');
+var gutil = require('gutil');
 
 gulp.task('lint', function () {
   return gulp.src(['gulpfile.js', '.jshintrc', 'src/**.js'])
@@ -40,16 +40,18 @@ gulp.task('bump', function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('tag', ['bump'], function () {
+gulp.task('tag', ['bump'], function (done) {
   var pkg = require('./package.json'),
     v = 'v' + pkg.version,
     msg = 'Release ' + v;
 
-  gulp.src('./')
-    .pipe(git.commit(msg))
-    .pipe(git.tag(v, msg))
-    .pipe(git.push('origin', 'master', '--tags'))
-    .pipe(gulp.dest('./'));
+  require('child_process')
+    .exec('git commit -am "' + msg + '"; git tag ' + v + '; git push origin master --tags', function (err) {
+      if (err !== null) {
+        gutil.log('Could not tag release: ' + gutil.colors.red(err));
+      }
+      done(err);
+    });
 });
 
 gulp.task('npm-publish', ['tag'], function (done) {
