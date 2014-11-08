@@ -8,7 +8,7 @@ var stylish = require('jshint-stylish');
 var bump = require('gulp-bump');
 var argv = require('yargs').argv;
 var karma = require('karma').server;
-var gutil = require('gutil');
+var gutil = require('gulp-util');
 
 gulp.task('lint', function () {
   return gulp.src(['gulpfile.js', '.jshintrc', 'src/**.js'])
