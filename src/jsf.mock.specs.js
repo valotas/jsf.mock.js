@@ -1,11 +1,17 @@
 /*jshint browser:true*/
-/*global describe, it, expect, jsf, jasmine*/
+/*global describe, it, expect, beforeEach, jasmine, jsfmock*/
 
 describe('jsf.mock.js', function () {
   'use strict';
   
   function noop () {}
   
+  var jsf;
+
+  beforeEach(function () {
+    jsf = jsfmock();
+  });
+
   describe('jsf.ajax', function () {
     it('should provide a fire function', function () {
       expect(jsf.ajax.fire).toBeDefined();
@@ -38,12 +44,6 @@ describe('jsf.mock.js', function () {
       expect(handlerSpy.calls.count()).toEqual(1);
     });
 
-    it('should provide a function to clear all existing handlers',function () {
-      expect(jsf.ajax.handlersSize()).toBeGreaterThan(0);
-      jsf.ajax.clearHandlers();
-      expect(jsf.ajax.handlersSize()).toBe(0);
-    });
-
     describe('handlersSize()', function () {
       it('should return the size of the current handlers', function () {
         expect(jsf.ajax.handlersSize()).toEqual(0);
@@ -67,6 +67,37 @@ describe('jsf.mock.js', function () {
         expect(jsf.ajax.handlersSize('name1')).toEqual(1);
         jsf.ajax.addOnError(function name1() {});
         expect(jsf.ajax.handlersSize('name1')).toEqual(2);
+      });
+    });
+
+    describe('clearHandlers()', function () {
+
+      it('should clear all existing handlers when no argument is given',function () {
+        jsf.ajax.addOnEvent(noop);
+        expect(jsf.ajax.handlersSize()).toBe(1);
+        jsf.ajax.clearHandlers();
+        expect(jsf.ajax.handlersSize()).toBe(0);
+      });
+
+      it('should clear all error handlers when error is given as argument',function () {
+        jsf.ajax.addOnError(noop);
+        jsf.ajax.addOnEvent(noop);
+        expect(jsf.ajax.handlersSize()).toBe(1);
+        expect(jsf.ajax.handlersSize('error')).toBe(1);
+        jsf.ajax.clearHandlers('error');
+        expect(jsf.ajax.handlersSize()).toBe(1);
+        expect(jsf.ajax.handlersSize('error')).toBe(0);
+      });
+
+      it('should clear named handlers with the given name as argument',function () {
+        jsf.ajax.addOnError(function h1 () {});
+        jsf.ajax.addOnEvent(function h1 () {});
+        jsf.ajax.addOnEvent(function h1 () {});
+        expect(jsf.ajax.handlersSize()).toBe(2);
+        expect(jsf.ajax.handlersSize('error')).toBe(1);
+        jsf.ajax.clearHandlers('h1');
+        expect(jsf.ajax.handlersSize()).toBe(0);
+        expect(jsf.ajax.handlersSize('error')).toBe(0);
       });
     });
 
