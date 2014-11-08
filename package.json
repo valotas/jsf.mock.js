@@ -1,6 +1,6 @@
 {
   "name": "jsf-mock",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mock implementation for jsf.js",
   "main": "src/jsf.mock.js",
   "scripts": {
