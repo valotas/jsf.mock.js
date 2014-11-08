@@ -3,6 +3,8 @@
 (function (g) {
   'use strict';
   
+  var NORMAL = 'normal';
+
   function IllegalArgumentException(message) {
     this.name = 'IllegalArgumentException';
     this.message = message;
@@ -36,7 +38,7 @@
       if (type !== 'error' || type !== 'normal') {
         name = data;
         data = type;
-        type = 'normal';
+        type = NORMAL;
       }
       handlers
         .filter(function (h) {
@@ -53,10 +55,22 @@
         });
     };
     
-    this.handlersSize = function (type) {
-      var t = type || 'normal';
+    this.handlersSize = function (query) {
+      var type,
+        name;
+
+      if (query) {
+        type = query === 'error' ? 'error' : null;
+        name = query !== 'error' ? query : null;
+      } else {
+        type = NORMAL;
+      }
+
       return handlers.filter(function (h) {
-        return h.type === t;
+        if (type && h.type !== type) {
+          return false;
+        }
+        return !(name) || name === h.name;
       }).length;
     };
 
