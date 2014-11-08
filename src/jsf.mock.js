@@ -107,10 +107,10 @@
     };
 
     if (!(g.jsf)) {
-      g.jsf = jsf;
+      g.jsf = jsfmock;
     }
 
-    return jsf;
+    return jsfmock;
   }
 
   //Export our module
