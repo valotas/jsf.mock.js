@@ -40,7 +40,7 @@ gulp.task('bump', function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('tag', function () {
+gulp.task('tag', ['bump'], function () {
   var pkg = require('./package.json'),
     v = 'v' + pkg.version,
     msg = 'Release ' + v;
@@ -52,11 +52,11 @@ gulp.task('tag', function () {
     .pipe(gulp.dest('./'));
 });
 
-gulp.task('npm-publish', function (done) {
+gulp.task('npm-publish', ['tag'], function (done) {
   require('child_process').spawn('npm', ['publish'], { stdio: 'inherit' })
     .on('close', done);
 });
 
 gulp.task('default', ['lint', 'ci-test']);
 
-gulp.task('release', ['bump', 'tag', 'npm-publish']);
+gulp.task('release', ['npm-publish']);
