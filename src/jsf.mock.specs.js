@@ -31,7 +31,7 @@ describe('jsf.mock.js', function () {
       expect(handler).toHaveBeenCalledWith(eventData);
     });
     
-    it('should fire an events only on functions with the given name if provided', function (){
+    it('should fire an event only on functions with the given name if provided (issue #2)', function (){
       var handlerSpy = jasmine.createSpy('handler'),
         eventData = {};
       
@@ -41,6 +41,16 @@ describe('jsf.mock.js', function () {
       });
       
       jsf.ajax.fire(eventData, 'handle');
+      expect(handlerSpy.calls.count()).toEqual(1);
+    });
+
+    it('should fire only the error events when error is given as the first argument of the query', function (){
+      var handlerSpy = jasmine.createSpy('handler'),
+        eventData = {};
+
+      jsf.ajax.addOnError(handlerSpy);
+
+      jsf.ajax.fire('error', eventData);
       expect(handlerSpy.calls.count()).toEqual(1);
     });
 

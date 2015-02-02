@@ -65,7 +65,7 @@
     };
 
     this.fire = function (type, data, name) {
-      if (type !== 'error' || type !== 'normal') {
+      if (type !== 'error' && type !== 'normal') {
         name = data;
         data = type;
         type = NORMAL;
